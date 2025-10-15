@@ -24,7 +24,7 @@ public class IsogramChecker {
         String lowerInput = input.toLowerCase();
         for (int i = 0; i < lowerInput.length(); i++) {
             for (int j = i + 1; j < lowerInput.length(); j++) {
-                if (input.charAt(i) == lowerInput.charAt(j)) {
+                if (lowerInput.charAt(i) == lowerInput.charAt(j)) {
                     return false;
                 }
             }

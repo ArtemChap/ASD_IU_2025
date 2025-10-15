@@ -16,9 +16,7 @@ public class Bynarysearch {
             arr[i] = scanner.nextInt();
         }
 
-
         bubbleSort(arr);
-
 
         System.out.print("Отсортированный массив: ");
         outmass(arr);
@@ -29,8 +27,7 @@ public class Bynarysearch {
         System.out.println("Метод бинарного поиска:");
         binary(arr, element);
 
-        int result = recbinary(arr, element);
-        System.out.println("Метод бинарного поиска рекурсией: "+ result);
+        System.out.println("Метод бинарного поиска рекурсией:");
         recbinary(arr, element);
 
         scanner.close();
@@ -56,18 +53,22 @@ public class Bynarysearch {
     }
 
     public static int binary(int[] arr, int element) {
+        // Проверка на пустой массив
+        if (arr.length == 0) {
+            System.out.println("Ошибка: массив пустой!");
+            return -1;
+        }
+
         int left = 0;
         int right = arr.length - 1;
         boolean found = false;
-
 
         while (left <= right) {
             int middle = left + (right - left) / 2;
             int current = arr[middle];
 
-
             if (current == element) {
-                System.out.println("Место элемента: "  + middle);
+                System.out.println("Место элемента: " + middle);
                 found = true;
                 return middle;
             }
@@ -85,22 +86,38 @@ public class Bynarysearch {
         return -1;
     }
 
+    public static int recbinary(int[] arr, int element, int left, int right) {
+        // Проверка на пустой массив должна быть ПЕРВОЙ
+        if (arr.length == 0) {
+            System.out.println("Ошибка: массив пустой!");
+            return -1;
+        }
 
-    public static int recbinary(int []arr, int element, int left, int right) {
+        // Затем проверка границ
+        if (left > right) {
+            System.out.println("Элемент " + element + " не найден в массиве");
+            return -1;
+        }
+
+        // И только потом работа с элементами массива
         int middle = left + (right - left) / 2;
         int current = arr[middle];
+
         if (current == element) {
             return middle;
         }
+
         if (current > element) {
-            return recbinary(arr, element, left, middle-1);
+            return recbinary(arr, element, left, middle - 1);
         } else {
-            return recbinary(arr, element, right, middle+1);
+            return recbinary(arr, element, middle + 1, right);
         }
     }
-    static int recbinary(int[] array, int element) {
-        int left = 0;
-        int right = array.length - 1;
-        return recbinary(array, element, left, right);
+
+    static void recbinary(int[] array, int element) {
+        int result = recbinary(array, element, 0, array.length - 1);
+        if (result != -1) {
+            System.out.println("Место элемента: " + result);
+        }
     }
 }
